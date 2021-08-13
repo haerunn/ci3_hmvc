@@ -46,10 +46,6 @@ class Dashboard extends CI_Controller {
 					mkdir($directory."/views");
 
 					// **
-					// create assets directory
-					mkdir($directory."/assets/");
-
-					// **
 					// create uploads directory
 					$dir_uploads = mkdir($directory."/uploads");
 					if (!$dir_uploads) {
@@ -83,11 +79,22 @@ class Dashboard extends CI_Controller {
 							
 							// **
 							// copy assets from unzipped directory to directory brand assets
-							rcopy($dir_unzip."/assets/", $directory."/assets/");
+							rcopy($dir_unzip."/assets/", FCPATH."/assets/".$post['brand']."/");
 							
 							// **
 							// move index.php to view
 							rename($dir_unzip."/index.php", $directory."/views/index.php");
+
+							// **
+							// replace {base_url}
+							$fname = $directory."/views/index.php";
+							$fhandle = fopen($fname,"r");
+							$content = fread($fhandle,filesize($fname));
+							$content = str_replace("{assets}", base_url()."assets/${post['brand']}/", $content);
+
+							$fhandle = fopen($fname,"w");
+							fwrite($fhandle,$content);
+							fclose($fhandle);
 						}
 					}
 				}
