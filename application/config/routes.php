@@ -1,9 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'dashboard';
 $route['404_override'] = '';
 
+// **
+// usual controller
+$route['admin']['get'] = 'admin/dashboard';
+$route['admin']['post'] = 'admin/dashboard/create';
 // **
 // modules
 $route['operator/dashboard']['get'] = 'operator_user/dashboard';
