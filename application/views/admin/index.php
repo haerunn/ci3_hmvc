@@ -1,4 +1,5 @@
-<form action="<?= base_url()."admin/dashboard/create" ?>" method="post">
+<?= form_open_multipart($form_url, '', $hidden ?? null); ?>
 	<input type="text" name="brand">
 	<input type="submit" name="Submit" value="submit">
-</form>
+		<input type="file" name="file">
+<?= form_close(); ?>
